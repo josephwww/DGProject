@@ -8,13 +8,22 @@ The activation function can be divided into two types:
 The linear activation function will turn the neural network into one layer which is a simple linear regression model.
 
 The non-linear activation function allows the model to create complex mappings between the network’s inputs and outputs. The examples are:
-    
+
+## 2. What is sigmoid? 
 - Sigmoid Function
-    - The Sigmoid function ranging from 0-1
-    
-    ![equation](https://latex.codecogs.com/gif.latex?%5CPhi%5Cleft%20%28%20Z%20%5Cright%20%29%3D%5Cfrac%7B1%7D%7B1+e%5E%7B-z%7D%7D)
+- The Sigmoid function value ranges from (0,1)
+
+![equation](https://miro.medium.com/max/224/1*DHN75JRJ_EQgGc0spfqLtQ.png)
+
+![figure](https://miro.medium.com/max/600/0*5euYS7InCmDP08ir.)
+
+## 3. What is the difference between sigmoid and Relu?
+
+## 4. Why sigmoid is in output function?
+
     
 - TanH
+    - 
 - ReLU
     
     
