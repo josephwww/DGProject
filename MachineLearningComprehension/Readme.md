@@ -11,6 +11,7 @@ The non-linear activation function allows the model to create complex mappings b
     
 - Sigmoid Function
     - The Sigmoid function ranging from 0-1
+    
     ![equation](https://latex.codecogs.com/gif.latex?%5CPhi%5Cleft%20%28%20Z%20%5Cright%20%29%3D%5Cfrac%7B1%7D%7B1+e%5E%7B-z%7D%7D)
     
 - TanH
