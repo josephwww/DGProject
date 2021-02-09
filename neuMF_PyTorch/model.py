@@ -110,10 +110,10 @@ class NCF(nn.Module):
 
         embed_user_MLP = self.embed_user_MLP(user)
         embed_item_MLP = self.embed_item_MLP(item)
-        interaction = torch.cat((embed_user_MLP, embed_item_MLP), -1)
+        interaction = torch.cat((embed_user_MLP, embed_item_MLP), -1) # concat the tensor with the same shape
         output_MLP = self.MLP_layers(interaction)
 
-        concat = torch.cat((output_GMF, output_MLP), -1)
+        concat = torch.cat((output_GMF, output_MLP), -1)  # dim=-1: the finest dimension
 
         prediction = self.predict_layer(concat)
         return prediction.view(-1)
