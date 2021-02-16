@@ -1,0 +1,63 @@
+%! Author = Wang
+%! Date = 2021/2/17
+
+\documentclass[nosupp]{cup-ino}
+\usepackage[utf8]{inputenc}
+\usepackage{longtable}
+\usepackage{blindtext,alltt}
+\usepackage{multicol}
+%% Full title
+\title{Research on demography data reconstruction}
+
+%% Shorter title, for use in page header
+\runningtitle{DG Project}
+\author{Joseph Wang}
+% \author
+
+%% The .bib file containing reference entires, for use with biblatex. CUP-INO loads the biblatex-chicago package with customisations for INO.
+\addbibresource{refs.bib}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+A recommender system may explicitly solicit user demographics through user registration. However, online users are not always willing to provide such information due to privacy concern. On the other hand, user interactions such as ratings in recommender systems may provide an alternative way to infer demographic information. For example, a Netflix user who likes romance comedy and child-friendly movies may indicate that she is a mom. Existing attempts include the famous de-anonymization of Netflix Prize dataset that link private Netflix rating data with public databases such as IMDB to partially infer some user identities. Other attempts suggest that it is possible to infer user gender
+with as high as 80\% accuracy given sufficient user ratings in recommender systems.\footcite{Li:2017}
+\end{abstract}
+
+
+\section{Decision Tree Approach}
+Specifically, for predicting both ratings and demographics such as age, we adopt least mean square error ($L_{2}$) as the loss function. In such cases, the user profile has a closed-form solution:
+\begin{equation}
+\begin{array}{c}
+u_{L}=\left(\lambda_{r} \sum_{i \in L(w)} \sum_{(i, j) \in O} v_{j} v_{j}^{\top}+\lambda_{s} \sum_{i \in L(w) \cap S} \theta \theta^{\top}+\lambda_{u} I\right)^{-1} \\
+\left.\lambda_{r} \sum_{i \in L(w)} \sum_{(i, j) \in O} r_{i j} v_{j}+\lambda_{s} \sum_{i \in L(w) \cap S} y_{i} \theta+\lambda_{u} u_{p}\right)
+\end{array}
+\end{equation}
+The profiles $u_{D}$ and $u_{U}$ for the other two children can be computed in a similar way. In summary, we iterate over possible items and select the best one for single-item split at each node. While for multi-item split, we alternatively optimize using techniques until convergence. After the current node is constructed, we recursively construct its child nodes in a similar way.\footcite{Sun:2017}
+
+\section{Example  Li:2017}
+In cold-start scenario, the system queries the user’s rating on several selected items and constructs a rough user profile, which is then used to predict ratings for other items and at the same time to infer demographics.
+assume that the demographic label y such as age or gender follows some distribution
+\begin{equation}
+y_{i} \in p\left(y_{i} \mid \theta^{\top} u_{i}\right)
+\end{equation}
+where $\theta$  is the regressor for continuous label prediction or the classifier for discrete label prediction.
+Given observed ratings $O=\left\{(i, j) \mid r_{i j}\right.$ is observed $\}$ and demographic information $S=\left\{i \mid y_{i}\right.$ is observed $\}$ , where $i = 1, 2, . . . ,m$ and $j = 1, 2, . . . ,n$ , our goal is to learn the function $T$ , item profile $v_{j}$ for each item $j$, and the regressor $\theta$ to minimize the negative
+log posterior of the model, which is equivalent to the following objective:
+\begin{equation}
+\begin{aligned}
+\min _{T, V, \theta} & \lambda_{r} \sum_{(i, j) \in O} \ell_{r}\left(r_{i j}, T\left(x_{i}\right)^{\top} v_{j}\right)+\lambda_{s} \sum_{i \in S} \ell_{s}\left(y_{i}, T\left(x_{i}\right)^{\top} \theta\right) \\
+&+\lambda_{v}\|V\|^{2}+\lambda_{\theta}\|\theta\|^{2}
+\end{aligned}
+\end{equation}
+
+
+%% Optional appendix
+% \appendix
+
+
+\printbibliography
+
+\end{document}
